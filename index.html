@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>vmhss mlp 31</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VMHSS MLP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>VMHSS MLP</h1>
+
+  <div class="container">
+    <div id="studentList">
+      <h2>Student List</h2>
+      <button onclick="addStudent()">Add Student</button>
+      <ul id="list"></ul>
+      <div id="summaryInfo"></div>
+    </div>
+
+    <div id="markForm">
+      <h2>Enter Student Marks</h2>
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Student Name"/>
+
+      <div class="extra-fields">
+        <div>
+          <label>Class</label>
+          <input type="text" id="class" placeholder="Class (e.g., 10)"/>
+        </div>
+        <div>
+          <label>Section</label>
+          <input type="text" id="section" placeholder="Section (e.g., A)"/>
+        </div>
+      </div>
+
+      <label>Status</label>
+      <select id="status">
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+      </select>
+
+      <div id="marksInputs"></div>
+
+      <p id="percentageDisplay" style="font-weight:bold; margin-top:10px;"></p>
+
+      <button onclick="saveMarks()">Save Marks</button>
+      <button id="downloadExcelBtn" onclick="downloadExcel()">Export to Excel</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
