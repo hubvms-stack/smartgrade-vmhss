@@ -146,3 +146,16 @@ button:hover {
     transform: scale(1);
   }
 }
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #studentList, #markForm {
+    width: 100%;
+  }
+
+  .extra-fields {
+    flex-direction: column;
+  }
+}
