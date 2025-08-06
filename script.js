@@ -264,44 +264,58 @@ window.onload = function () {
   loadFromLocalStorage();
 };
 function printFullMarkList() {
-  let printWindow = window.open('', '', 'height=800,width=1000');
-  printWindow.document.write('<html><head><title>Student Mark List</title>');
-  printWindow.document.write(`
-    <style>
-      body { font-family: Arial, sans-serif; color: #000; }
-      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-      th, td { border: 1px solid #000; padding: 8px; text-align: center; }
-      th { background-color: #f2f2f2; }
-      h1 { text-align: center; }
-    </style>
-  `);
-  printWindow.document.write('</head><body>');
-  printWindow.document.write('<h1>Student Mark List</h1>');
-  printWindow.document.write('<table>');
-  printWindow.document.write('<tr><th>Name</th>');
-
-  // Assuming first student has all subjects
-  if (students.length > 0) {
-    for (let subject of students[0].marks.map((_, i) => subjects[i] || `Sub${i + 1}`)) {
-      printWindow.document.write(`<th>${subject}</th>`);
-    }
-    printWindow.document.write('<th>Total</th><th>Percentage</th></tr>');
-
-    for (let student of students) {
-      let total = student.marks.reduce((a, b) => a + Number(b), 0);
-      let percentage = (total / student.marks.length).toFixed(2);
-      printWindow.document.write(`<tr><td>${student.name}</td>`);
-      for (let mark of student.marks) {
-        printWindow.document.write(`<td>${mark}</td>`);
-      }
-      printWindow.document.write(`<td>${total}</td><td>${percentage}%</td></tr>`);
-    }
-  } else {
-    printWindow.document.write('</tr><tr><td colspan="100%">No students found</td></tr>');
+  if (students.length === 0) {
+    alert("No students to print.");
+    return;
   }
 
-  printWindow.document.write('</table>');
-  printWindow.document.write('</body></html>');
+  const printWindow = window.open('', '', 'width=1000,height=800');
+  const studentHeaders = students[0].marks.map((_, i) => subjects[i] || `Subject ${i + 1}`);
+
+  let html = `
+    <html>
+    <head>
+      <title>Student Mark List</title>
+      <style>
+        body { font-family: Arial, sans-serif; color: #000; padding: 20px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #000; padding: 8px; text-align: center; font-size: 14px; }
+        th { background-color: #f2f2f2; }
+        @media print {
+          body { margin: 0; }
+        }
+      </style>
+    </head>
+    <body>
+      <h1>VMHSS Student Mark List</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>`;
+
+  studentHeaders.forEach(sub => {
+    html += `<th>${sub}</th>`;
+  });
+
+  html += `<th>Total</th><th>Percentage</th></tr></thead><tbody>`;
+
+  students.forEach(student => {
+    const total = student.marks.reduce((a, b) => a + Number(b), 0);
+    const percentage = (total / student.marks.length).toFixed(2);
+
+    html += `<tr><td>${student.name}</td>`;
+    student.marks.forEach(mark => {
+      html += `<td>${mark}</td>`;
+    });
+    html += `<td>${total}</td><td>${percentage}%</td></tr>`;
+  });
+
+  html += `</tbody></table></body></html>`;
+
+  printWindow.document.write(html);
   printWindow.document.close();
+  printWindow.focus();
   printWindow.print();
 }
+
