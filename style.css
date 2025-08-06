@@ -230,3 +230,32 @@ label {
     gap: 10px;
   }
 }
+@media print {
+  body {
+    background: #fff !important;
+    color: #000;
+    font-size: 14px;
+  }
+
+  button, #markForm, #summaryInfo, h2, .extra-fields {
+    display: none !important;
+  }
+
+  #studentList {
+    width: 100% !important;
+    background: none !important;
+    box-shadow: none;
+    color: #000;
+  }
+
+  .student {
+    background: none;
+    color: #000;
+    border: none;
+    font-size: 16px;
+  }
+
+  .student:hover {
+    background: none;
+  }
+}
