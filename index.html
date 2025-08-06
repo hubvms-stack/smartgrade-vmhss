@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>vmhss mlp 31</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,6 +10,7 @@
   <h1>VMHSS MLP</h1>
 
   <div class="container">
+    <!-- Student List -->
     <div id="studentList">
       <h2>Student List</h2>
       <button onclick="addStudent()">Add Student</button>
@@ -27,42 +18,59 @@
       <div id="summaryInfo"></div>
     </div>
 
+    <!-- Mark Entry Form -->
     <div id="markForm">
       <h2>Enter Student Marks</h2>
+
       <label>Name</label>
-      <input type="text" id="name" placeholder="Student Name"/>
+      <input type="text" id="name" placeholder="Student Name" />
 
       <div class="extra-fields">
+        <!-- Class Dropdown -->
         <div>
-          <label>Class</label>
-          <input type="text" id="class" placeholder="Class (e.g., 10)"/>
+          <label for="class">Class</label>
+          <select id="class" onchange="updateSectionOptions()">
+            <option value="">Select Class</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
         </div>
+
+        <!-- Section Dropdown -->
         <div>
-          <label>Section</label>
-          <input type="text" id="section" placeholder="Section (e.g., A)"/>
+          <label for="section">Section</label>
+          <select id="section">
+            <option value="">Select Section</option>
+            <!-- Dynamically filled by JS -->
+          </select>
         </div>
       </div>
 
-      <label>Status</label>
-      <select id="status">
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-      </select>
-
+      <!-- Subject Marks Input (generated dynamically) -->
       <div id="marksInputs"></div>
 
+      <!-- Percentage Display -->
       <p id="percentageDisplay" style="font-weight:bold; margin-top:10px;"></p>
 
+      <!-- Action Buttons -->
       <button onclick="saveMarks()">Save Marks</button>
-      <button id="downloadExcelBtn" onclick="downloadExcel()">Export to Excel</button>
+      <button onclick="downloadExcel()">Export to Excel</button>
+      <button onclick="downloadPDF()">Export to PDF</button>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
-</body>
-</html>
+
