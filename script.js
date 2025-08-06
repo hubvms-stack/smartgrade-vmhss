@@ -319,19 +319,7 @@ function printFullMarkList() {
   printWindow.focus();
   printWindow.print();
 }
-function downloadPDF() {
-  const doc = new jsPDF();
-  doc.setFontSize(14);
-  doc.text("VMHSS Mark List", 20, 20);
 
-  let y = 30;
-  students.forEach((student, index) => {
-    doc.text(`${index + 1}. ${student.name} - Total: ${student.total}, %: ${student.percentage}`, 20, y);
-    y += 10;
-  });
-
-  doc.save("VMHSS-MarkList.pdf"); // This downloads the file
-}
 function exportToPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -365,4 +353,3 @@ function exportToPDF() {
 
   doc.save("VMHSS-MarkList.pdf");
 }
-
