@@ -263,16 +263,46 @@ function loadFromLocalStorage() {
 window.onload = function () {
   loadFromLocalStorage();
 };
-function printStudentList() {
-  const printContents = document.getElementById('studentList').innerHTML;
-  const originalContents = document.body.innerHTML;
+function printFullMarkList() {
+  let printWindow = window.open('', '', 'height=800,width=1000');
+  printWindow.document.write('<html><head><title>Student Mark List</title>');
+  printWindow.document.write(`
+    <style>
+      body { font-family: Arial, sans-serif; color: #000; }
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+      th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+      th { background-color: #f2f2f2; }
+      h1 { text-align: center; }
+    </style>
+  `);
+  printWindow.document.write('</head><body>');
+  printWindow.document.write('<h1>Student Mark List</h1>');
+  printWindow.document.write('<table>');
+  printWindow.document.write('<tr><th>Name</th>');
 
-  document.body.innerHTML = `
-    <h1>Student Mark List</h1>
-    ${printContents}
-  `;
+  // Assuming first student has all subjects
+  if (students.length > 0) {
+    for (let subject of students[0].marks.map((_, i) => subjects[i] || `Sub${i + 1}`)) {
+      printWindow.document.write(`<th>${subject}</th>`);
+    }
+    printWindow.document.write('<th>Total</th><th>Percentage</th></tr>');
 
-  window.print();
-  document.body.innerHTML = originalContents;
-  location.reload(); // Reload to restore event listeners and UI
+    for (let student of students) {
+      let total = student.marks.reduce((a, b) => a + Number(b), 0);
+      let percentage = (total / student.marks.length).toFixed(2);
+      printWindow.document.write(`<tr><td>${student.name}</td>`);
+      for (let mark of student.marks) {
+        printWindow.document.write(`<td>${mark}</td>`);
+      }
+      printWindow.document.write(`<td>${total}</td><td>${percentage}%</td></tr>`);
+    }
+  } else {
+    printWindow.document.write('</tr><tr><td colspan="100%">No students found</td></tr>');
+  }
+
+  printWindow.document.write('</table>');
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
 }
+
