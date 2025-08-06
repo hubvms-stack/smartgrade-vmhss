@@ -263,3 +263,16 @@ function loadFromLocalStorage() {
 window.onload = function () {
   loadFromLocalStorage();
 };
+function printStudentList() {
+  const printContents = document.getElementById('studentList').innerHTML;
+  const originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = `
+    <h1>Student Mark List</h1>
+    ${printContents}
+  `;
+
+  window.print();
+  document.body.innerHTML = originalContents;
+  location.reload(); // Reload to restore event listeners and UI
+}
