@@ -332,4 +332,37 @@ function downloadPDF() {
 
   doc.save("VMHSS-MarkList.pdf"); // This downloads the file
 }
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("VMHSS Student Mark List", 10, 10);
+
+  let y = 20;
+
+  students.forEach((student, index) => {
+    let line = `${index + 1}. ${student.name} - Total: ${student.total}, %: ${student.percentage}`;
+    doc.text(line, 10, y);
+    y += 10;
+
+    // If subject marks are available, show them too
+    if (student.marks) {
+      Object.entries(student.marks).forEach(([subject, mark]) => {
+        doc.text(`   ${subject}: ${mark}`, 15, y);
+        y += 8;
+      });
+    }
+
+    y += 5;
+
+    // Add page if content overflows
+    if (y > 270) {
+      doc.addPage();
+      y = 20;
+    }
+  });
+
+  doc.save("VMHSS-MarkList.pdf");
+}
 
