@@ -145,3 +145,14 @@ button:hover {
     transform: scale(1);
   }
 }
+body {
+  padding: 10px;
+}
+
+input[type="text"], input[type="number"], select {
+  font-size: 14px;
+}
+
+label {
+  font-size: 14px;
+}
