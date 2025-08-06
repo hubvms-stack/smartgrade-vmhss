@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
+<<head>
   <meta charset="UTF-8">
   <title>vmhss mlp 31</title>
   <link rel="stylesheet" href="./style.css">
 
+  <!-- ✅ Add these PDF libraries here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
 <!-- partial:index.partial.html -->
 <!DOCTYPE html>
@@ -90,3 +93,30 @@
 
 </body>
 </html>
+<script>
+function saveToLocalStorage() {
+  if (typeof students !== "undefined") {
+    localStorage.setItem("studentsData", JSON.stringify(students));
+  }
+}
+
+function downloadPDF() {
+  saveToLocalStorage(); // Save before export
+
+  const element = document.getElementById('studentList'); // The container you want to export
+  if (!element) {
+    alert("Student list not found for PDF export!");
+    return;
+  }
+
+  const opt = {
+    margin:       0.5,
+    filename:     'VMHSS_Student_Mark_List.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().from(element).set(opt).save();
+}
+</script>
