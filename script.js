@@ -305,4 +305,3 @@ function printFullMarkList() {
   printWindow.document.close();
   printWindow.print();
 }
-
