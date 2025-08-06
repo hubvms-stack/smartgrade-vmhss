@@ -145,3 +145,24 @@ button:hover {
     transform: scale(1);
   }
 }
+/* Mobile Portrait Optimization */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  #studentList, #markForm {
+    width: 100%;
+  }
+
+  .extra-fields {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+}
