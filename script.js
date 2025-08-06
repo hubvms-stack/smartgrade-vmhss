@@ -281,6 +281,7 @@ function printFullMarkList() {
         h1 { text-align: center; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #000; padding: 8px; text-align: center; font-size: 14px; }
+        
         th { background-color: #f2f2f2; }
         @media print {
           body { margin: 0; }
@@ -317,5 +318,18 @@ function printFullMarkList() {
   printWindow.document.close();
   printWindow.focus();
   printWindow.print();
+}
+function downloadPDF() {
+  const doc = new jsPDF();
+  doc.setFontSize(14);
+  doc.text("VMHSS Mark List", 20, 20);
+
+  let y = 30;
+  students.forEach((student, index) => {
+    doc.text(`${index + 1}. ${student.name} - Total: ${student.total}, %: ${student.percentage}`, 20, y);
+    y += 10;
+  });
+
+  doc.save("VMHSS-MarkList.pdf"); // This downloads the file
 }
 
