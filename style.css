@@ -156,3 +156,37 @@ input[type="text"], input[type="number"], select {
 label {
   font-size: 14px;
 }
+/* Portrait Mobile View Fix */
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #studentList,
+  #markForm {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  .extra-fields {
+    flex-direction: column;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select,
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  h1, h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  #summaryInfo {
+    font-size: 18px;
+  }
+}
