@@ -353,3 +353,17 @@ function exportToPDF() {
 
   doc.save("VMHSS-MarkList.pdf");
 }
+function printFullMarkList() {
+  const element = document.getElementById('studentList'); // Or entire container
+  if (!element) return alert("Content not found.");
+
+  const opt = {
+    margin: 0.5,
+    filename: 'VMHSS_Student_Marks.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
