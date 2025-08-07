@@ -353,17 +353,39 @@ function exportToPDF() {
 
   doc.save("VMHSS-MarkList.pdf");
 }
-function printFullMarkList() {
-  const element = document.getElementById('studentList'); // Or entire container
-  if (!element) return alert("Content not found.");
+function generatePrintableMarkList() {
+  const studentList = JSON.parse(localStorage.getItem("students")) || [];
+  const printContent = document.getElementById("printContent");
 
-  const opt = {
-    margin: 0.5,
-    filename: 'VMHSS_Student_Marks.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
+  let html = "<table border='1' cellspacing='0' cellpadding='8' style='width:100%; font-size:14px; border-collapse: collapse;'>";
+  html += `
+    <thead>
+      <tr style="background:#f0f0f0;">
+        <th>Name</th>
+        <th>Subjects</th>
+        <th>Total</th>
+        <th>Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+  `;
 
-  html2pdf().set(opt).from(element).save();
+  studentList.forEach(student => {
+    const subjectHTML = Object.entries(student.marks || {})
+      .map(([subject, mark]) => `<strong>${subject}:</strong> ${mark}`)
+      .join("<br>");
+
+    html += `
+      <tr>
+        <td>${student.name}</td>
+        <td>${subjectHTML}</td>
+        <td>${student.total || 0}</td>
+        <td>${student.percentage ? student.percentage.toFixed(2) + "%" : "0%"}</td>
+      </tr>
+    `;
+  });
+
+  html += "</tbody></table>";
+  printContent.innerHTML = html;
+  document.getElementById("printSection").style.display = "block";
 }
